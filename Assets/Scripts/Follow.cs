@@ -10,6 +10,6 @@ public class Follow : MonoBehaviour
     
     void Update()
     {
-        transform.position = target.position + offset;
+        //transform.position = target.position + offset;
     }
 }
