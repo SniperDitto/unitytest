@@ -53,8 +53,8 @@ public class Player : MonoBehaviour
         
         //rigidbody - freeze rotation 설정으로 관성에 의한 쓰러짐 방지
         
-        animator.SetBool("isRun", moveVector != Vector3.zero);
-        animator.SetBool("isWalk", wDown);
+        //animator.SetBool("isRun", moveVector != Vector3.zero);
+        //animator.SetBool("isWalk", wDown);
     }
 
     void Turn()
@@ -69,8 +69,8 @@ public class Player : MonoBehaviour
         {
             isJump = true;
             rigidBody.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
-            animator.SetBool("isJump", true);
-            animator.SetTrigger("doJump");
+            //animator.SetBool("isJump", true);
+            //animator.SetTrigger("doJump");
         }
     }
 
@@ -79,7 +79,7 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Floor")
         {
             isJump = false;
-            animator.SetBool("isJump", false);
+            //animator.SetBool("isJump", false);
         }
     }
 }
