@@ -45,8 +45,14 @@ public class PlayerNetwork : NetworkBehaviour
             Level = 1,
             RandomNumber = Random.Range(0, 100),
             IsHungry = false,
-            Message = "Hello!"
+            Message = $"Hello! I'm nakji {OwnerClientId}."
         };
+        if(Input.GetKeyDown(KeyCode.R)) TestServerRpc(new ServerRpcParams());
+        if(Input.GetKeyDown(KeyCode.F)) TestClientRpc(new ClientRpcParams()
+        {
+            //1번낙지에게만 보내는 rpc
+            Send = new ClientRpcSendParams(){TargetClientIds = new List<ulong>(){1}}
+        });
         
         Vector3 moveDirection = new Vector3(0, 0, 0);
 
@@ -58,6 +64,22 @@ public class PlayerNetwork : NetworkBehaviour
         float moveSpeed = 10f;
         transform.position += moveDirection * (moveSpeed * Time.deltaTime);
 
+    }
+
+    [ServerRpc]
+    private void TestServerRpc(ServerRpcParams serverRpcParams)
+    {
+        Debug.Log($"TestServerRpc : nakji {OwnerClientId}");
+        Debug.Log($"paramsSend : {serverRpcParams.Send.ToString()}");
+        Debug.Log($"paramsReceived : {serverRpcParams.Receive.ToString()}");
+    }
+
+    [ClientRpc]
+    private void TestClientRpc(ClientRpcParams clientRpcParams)
+    {
+        Debug.Log($"TestClientRpc : nakji {OwnerClientId}");
+        Debug.Log($"paramsSend : {clientRpcParams.Send.ToString()}");
+        Debug.Log($"paramsReceived : {clientRpcParams.Receive.ToString()}");
     }
 
     public override void OnNetworkSpawn()
