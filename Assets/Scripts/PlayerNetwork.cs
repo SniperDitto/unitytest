@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 
 public class PlayerNetwork : NetworkBehaviour
 {
+    [SerializeField] private Transform spawnTestObject;
+    private Transform spawnObjTransform;
     
     private NetworkVariable<NakjiData> _nakjiData = new NetworkVariable<NakjiData>
     (
@@ -53,6 +55,17 @@ public class PlayerNetwork : NetworkBehaviour
             //1번낙지에게만 보내는 rpc
             Send = new ClientRpcSendParams(){TargetClientIds = new List<ulong>(){1}}
         });
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            spawnObjTransform = Instantiate(spawnTestObject);
+            spawnObjTransform.GetComponent<NetworkObject>().Spawn(true);
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            Destroy(spawnObjTransform.gameObject);
+        }
         
         Vector3 moveDirection = new Vector3(0, 0, 0);
 
